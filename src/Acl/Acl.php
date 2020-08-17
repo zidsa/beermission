@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Yxvt\Beermission\Acl;
 
 use Closure;
-use Yxvt\Beermission\Domain\Bearer;
-use Yxvt\Beermission\Domain\Permission;
-use Yxvt\Beermission\Domain\Role;
+use Yxvt\Beermission\Entity\Bearer;
+use Yxvt\Beermission\Entity\Permission;
+use Yxvt\Beermission\Entity\Role;
 
 class Acl
 {

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Yxvt\Beermission\Test;
 
-use Yxvt\Beermission\Domain\Grant;
-use Yxvt\Beermission\Domain\GrantIndexBuilder;
-use Yxvt\Beermission\Domain\Scope;
+use Yxvt\Beermission\Entity\Grant;
+use Yxvt\Beermission\Entity\GrantIndexBuilder;
+use Yxvt\Beermission\Entity\Scope;
 use PHPUnit\Framework\TestCase;
 
 class GrantIndexBuilderTest extends TestCase

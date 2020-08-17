@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Yxvt\Beermission\Acl;
 
-use Yxvt\Beermission\Domain\Bearer;
+use Yxvt\Beermission\Entity\Bearer;
 
 class AccessEvaluator
 {

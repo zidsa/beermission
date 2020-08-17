@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Yxvt\Beermission\Acl;
 
-use Yxvt\Beermission\Domain\Permission;
-use Yxvt\Beermission\Domain\Role;
-use Yxvt\Beermission\Domain\Scope;
+use Yxvt\Beermission\Entity\Permission;
+use Yxvt\Beermission\Entity\Role;
+use Yxvt\Beermission\Entity\Scope;
 
 class RequiredGrantBuilder
 {

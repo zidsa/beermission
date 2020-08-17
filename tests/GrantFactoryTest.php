@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Yxvt\Beermission\Test;
 
-use Yxvt\Beermission\Domain\GrantIndexBuilder;
-use Yxvt\Beermission\Domain\Permission;
-use Yxvt\Beermission\Domain\Role;
-use Yxvt\Beermission\Domain\Scope;
+use Yxvt\Beermission\Entity\GrantIndexBuilder;
+use Yxvt\Beermission\Entity\Permission;
+use Yxvt\Beermission\Entity\Role;
+use Yxvt\Beermission\Entity\Scope;
 use Yxvt\Beermission\Exception\InvalidStringifiedGrant;
 use Yxvt\Beermission\Factory\GrantFactory;
 use PHPUnit\Framework\TestCase;

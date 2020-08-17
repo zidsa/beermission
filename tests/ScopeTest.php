@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Yxvt\Beermission\Test;
 
-use Yxvt\Beermission\Domain\Scope;
+use Yxvt\Beermission\Entity\Scope;
 use PHPUnit\Framework\TestCase;
 
 class ScopeTest extends TestCase

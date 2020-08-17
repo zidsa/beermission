@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Yxvt\Beermission\Domain;
+namespace Yxvt\Beermission\Entity;
 
 abstract class Grant
 {
