@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Yxvt\Beermission\Test;
 
 use Yxvt\Beermission\Acl\Acl;
+use Yxvt\Beermission\Acl\RequiredGrantBuilder;
 use Yxvt\Beermission\Domain\Bearer;
 use Yxvt\Beermission\Domain\Grant;
 use Yxvt\Beermission\Domain\GrantBag;
@@ -14,59 +15,56 @@ use PHPUnit\Framework\TestCase;
 
 class AclTest extends TestCase
 {
-    public function testAclWithBearerHavingEveryGrant(): void {
-        $bearer = new Bearer(
+    private Bearer $bearer;
+    private Acl $acl;
+
+    protected function setUp(): void {
+        parent::setUp();
+
+        $this->bearer = new Bearer(
             'bearerId',
-            $this->createGrantBag($this->createGrant('RoleGrant', 'Role')),
-            $this->createGrantBag($this->createGrant('PermissionGrant', 'Permission')),
+            $this->createGrantBag(
+                $this->createGrant('Role', 'RoleScope', 'RoleScopeValue')
+            ),
+            $this->createGrantBag(
+                $this->createGrant('Permission', 'PermissionScope', 'PermissionScopeValue')
+            )
         );
 
-        $acl = new Acl();
-
-        $acl->bearer($bearer)
-            ->withRole('RoleGrant', 'RoleScope', 'RoleScopeValue')
-            ->withPermission('PermissionGrant', 'PermissionScope', 'PermissionScopeValue')
-            ->grantAccessWhen()
-            ->hasEveryGrant();
-
-        $builder = $acl->bearer($bearer)
-            ->withRole('RoleGrant', 'Role')
-            ->withPermission('PermissionGrant', 'Permission');
-
-        $this->assertTrue($builder->grantAccessWhen()->hasEveryGrant());
-        $this->assertTrue($builder->grantAccessWhen()->hasEitherGrant());
+        $this->acl = new Acl();
     }
 
-    public function testAclWithBearerHavingOnlySomeGrants(): void {
-        $bearer = new Bearer(
-            'bearerId',
-            $this->createGrantBag($this->createGrant('RoleGrant', 'Role')),
-            $this->createGrantBag($this->createGrant('PermissionGrant', 'Permission')),
+    public function testAclGrantsAccessForBearersHavingAllRequiredGrants(): void {
+        $this->assertTrue($this->acl->bearer($this->bearer)
+            ->that(static function (RequiredGrantBuilder $grantBuilder): void {
+                $grantBuilder->hasRole('Role', 'RoleScope', 'RoleScopeValue');
+                $grantBuilder->hasPermission('Permission', 'PermissionScope', 'PermissionScopeValue');
+            })
+            ->shouldBeGrantedAccessWhen()
+            ->hasAllExpectedGrants()
         );
-
-        $acl = new Acl();
-        $builder = $acl->bearer($bearer)
-            ->withRole('SomeOtherRole', 'Role')
-            ->withPermission('PermissionGrant', 'Permission');
-
-        $this->assertFalse($builder->grantAccessWhen()->hasEveryGrant());
-        $this->assertTrue($builder->grantAccessWhen()->hasEitherGrant());
     }
 
-    public function testAclWithBearerHavingNoneRequiredGrants(): void {
-        $bearer = new Bearer(
-            'bearerId',
-            $this->createGrantBag($this->createGrant('RoleGrant', 'Role')),
-            $this->createGrantBag($this->createGrant('PermissionGrant', 'Permission')),
+    public function testAclGrantsAccessForBearersHavingSomeRequiredGrants(): void {
+        $this->assertTrue($this->acl->bearer($this->bearer)
+            ->that(static function (RequiredGrantBuilder $grantBuilder): void {
+                $grantBuilder->hasRole('Role', 'RoleScope', 'RoleScopeValue');
+                $grantBuilder->hasPermission('OtherPermission', 'PermissionScope', 'PermissionScopeValue');
+            })
+            ->shouldBeGrantedAccessWhen()
+            ->hasEitherExpectedGrant()
         );
+    }
 
-        $acl = new Acl();
-        $builder = $acl->bearer($bearer)
-            ->withRole('SomeOtherRole', 'Role')
-            ->withPermission('SomeOtherPermission', 'Permission');
-
-        $this->assertFalse($builder->grantAccessWhen()->hasEveryGrant());
-        $this->assertFalse($builder->grantAccessWhen()->hasEitherGrant());
+    public function testAclDoesNotGrantAccessForBearersHavingInsufficientGrants(): void {
+        $this->assertFalse($this->acl->bearer($this->bearer)
+            ->that(static function (RequiredGrantBuilder $grantBuilder): void {
+                $grantBuilder->hasRole('Role', 'RoleScope', 'RoleScopeValue');
+                $grantBuilder->hasPermission('OtherPermission', 'PermissionScope', 'PermissionScopeValue');
+            })
+            ->shouldBeGrantedAccessWhen()
+            ->hasAllExpectedGrants()
+        );
     }
 
     private function createGrantBag(Grant ...$grants): GrantBag

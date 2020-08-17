@@ -8,11 +8,15 @@ Once your Bearer entity is set up, you can determine if it should be granted acc
 following fashion.
 
 ```php
-$acl->bearer($bearer)
-            ->withRole('RoleGrant', 'RoleScope', 'RoleScopeValue')
-            ->withPermission('PermissionGrant', 'PermissionScope', 'PermissionScopeValue')
-            ->grantAccessWhen()
-            ->hasEveryGrant();
+$this->acl
+    ->bearer($this->bearer)
+    ->that(static function (RequiredGrantBuilder $grantBuilder): void {
+        $grantBuilder->hasRole('Role', 'RoleScope', 'RoleScopeValue');
+        $grantBuilder->hasPermission('Permission', 'PermissionScope', 'PermissionScopeValue');
+    })
+    ->shouldBeGrantedAccessWhen()
+    ->hasAllExpectedGrants();
 ```
 
 > Important note: the syntax is most likely going to change.
+

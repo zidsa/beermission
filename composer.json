@@ -18,7 +18,10 @@
     "autoload": {
         "psr-4": {
             "Yxvt\\Beermission\\": "src/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
