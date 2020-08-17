@@ -4,29 +4,29 @@ declare(strict_types=1);
 
 namespace Yxvt\Beermission\Test;
 
-use Yxvt\Beermission\Entity\GrantIndexBuilder;
 use Yxvt\Beermission\Entity\Permission;
 use Yxvt\Beermission\Entity\Role;
 use Yxvt\Beermission\Entity\Scope;
 use Yxvt\Beermission\Exception\InvalidStringifiedGrant;
 use Yxvt\Beermission\Factory\GrantFactory;
 use PHPUnit\Framework\TestCase;
+use Yxvt\Beermission\Service\BuildGrantIndexService;
 
 class GrantFactoryTest extends TestCase
 {
     private GrantFactory $factory;
-    private GrantIndexBuilder $grantIndexBuilder;
+    private BuildGrantIndexService $buildGrantIndexService;
 
     protected function setUp(): void {
         parent::setUp();
 
         $this->factory = new GrantFactory();
-        $this->grantIndexBuilder = new GrantIndexBuilder();
+        $this->buildGrantIndexService = new BuildGrantIndexService();
     }
 
     public function testGrantFactoryCreatesRole(): void {
         $sourceRole = new Role('Role', new Scope('Scope', 'Value'));
-        $role = $this->factory->roleFromString($this->grantIndexBuilder->build($sourceRole));
+        $role = $this->factory->roleFromString($this->buildGrantIndexService->build($sourceRole));
 
         $this->assertEquals('Role', $role->name());
         $this->assertEquals('Scope', $role->scope()->getName());
@@ -35,7 +35,7 @@ class GrantFactoryTest extends TestCase
 
     public function testGrantFactoryCreatesPermissions(): void {
         $sourcePermission = new Permission('Permission', new Scope('Scope', 'Value'));
-        $permission = $this->factory->permissionFromString($this->grantIndexBuilder->build($sourcePermission));
+        $permission = $this->factory->permissionFromString($this->buildGrantIndexService->build($sourcePermission));
 
         $this->assertEquals('Permission', $permission->name());
         $this->assertEquals('Scope', $permission->scope()->getName());

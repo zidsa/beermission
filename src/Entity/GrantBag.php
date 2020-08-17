@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace Yxvt\Beermission\Entity;
 
+use Yxvt\Beermission\Service\BuildGrantIndexService;
+
 class GrantBag
 {
-    private GrantIndexBuilder $indexBuilder;
+    private BuildGrantIndexService $indexBuilder;
 
     /** @var array|Grant[] */
     private array $grants = [];
 
-    public function __construct(GrantIndexBuilder $grantIndexBuilder, Grant ...$grants) {
+    public function __construct(BuildGrantIndexService $grantIndexBuilder, Grant ...$grants) {
         $this->indexBuilder = $grantIndexBuilder;
 
         foreach ($grants as $grant) {

@@ -9,9 +9,9 @@ use Yxvt\Beermission\Acl\RequiredGrantBuilder;
 use Yxvt\Beermission\Entity\Bearer;
 use Yxvt\Beermission\Entity\Grant;
 use Yxvt\Beermission\Entity\GrantBag;
-use Yxvt\Beermission\Entity\GrantIndexBuilder;
 use Yxvt\Beermission\Entity\Scope;
 use PHPUnit\Framework\TestCase;
+use Yxvt\Beermission\Service\BuildGrantIndexService;
 
 class AclTest extends TestCase
 {
@@ -69,7 +69,7 @@ class AclTest extends TestCase
 
     private function createGrantBag(Grant ...$grants): GrantBag
     {
-        return new GrantBag(new GrantIndexBuilder(), ...$grants);
+        return new GrantBag(new BuildGrantIndexService(), ...$grants);
     }
 
     private function createGrant(string $name, string $scope, ?string $scopeValue = null): Grant

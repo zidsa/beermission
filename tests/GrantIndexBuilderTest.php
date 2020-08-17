@@ -5,36 +5,36 @@ declare(strict_types=1);
 namespace Yxvt\Beermission\Test;
 
 use Yxvt\Beermission\Entity\Grant;
-use Yxvt\Beermission\Entity\GrantIndexBuilder;
 use Yxvt\Beermission\Entity\Scope;
 use PHPUnit\Framework\TestCase;
+use Yxvt\Beermission\Service\BuildGrantIndexService;
 
 class GrantIndexBuilderTest extends TestCase
 {
-    private GrantIndexBuilder $builder;
+    private BuildGrantIndexService $service;
 
     protected function setUp(): void {
         parent::setUp();
 
-        $this->builder = new GrantIndexBuilder();
+        $this->service = new BuildGrantIndexService();
     }
 
     public function testIndexCreationForConcreteGrant(): void {
         $this->assertEquals(
             'Name;Scope;ScopeValue',
-            $this->builder->build($this->createGrant('Name', 'Scope', 'ScopeValue'))
+            $this->service->build($this->createGrant('Name', 'Scope', 'ScopeValue'))
         );
     }
 
     public function testIndexCreationForGenericGrant(): void {
         $this->assertEquals(
             'Name;Scope;',
-            $this->builder->build($this->createGrant('Name', 'Scope'))
+            $this->service->build($this->createGrant('Name', 'Scope'))
         );
 
         $this->assertEquals(
             'Name;Scope;',
-            $this->builder->build($this->createGrant('Name', 'Scope', 'ScopeIsIgnored'), true)
+            $this->service->build($this->createGrant('Name', 'Scope', 'ScopeIsIgnored'), true)
         );
     }
 

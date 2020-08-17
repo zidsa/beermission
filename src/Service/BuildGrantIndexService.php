@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Yxvt\Beermission\Entity;
+namespace Yxvt\Beermission\Service;
 
-class GrantIndexBuilder
+use Yxvt\Beermission\Entity\Grant;
+
+class BuildGrantIndexService
 {
     public function build(Grant $grant, bool $forceGeneric = false): string {
         return implode(';', [
