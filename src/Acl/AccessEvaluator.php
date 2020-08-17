@@ -46,11 +46,15 @@ class AccessEvaluator
         $hasEither = false;
 
         foreach ($this->roles as $role) {
-            $hasEither = $hasEither || $this->bearer->hasRole($role);
+            if ($this->bearer->hasRole($role)) {
+                return true;
+            }
         }
 
         foreach ($this->permissions as $permission) {
-            $hasEither = $hasEither || $this->bearer->hasPermission($permission);
+            if ($this->bearer->hasPermission($permission)) {
+                return true;
+            }
         }
 
         return $hasEither;
