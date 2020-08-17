@@ -11,6 +11,7 @@ use Yxvt\Beermission\Exception\InvalidStringifiedGrant;
 use Yxvt\Beermission\Factory\GrantFactory;
 use PHPUnit\Framework\TestCase;
 use Yxvt\Beermission\Service\BuildGrantIndexService;
+use Yxvt\Beermission\Service\ValidateStringifiedGrantService;
 
 class GrantFactoryTest extends TestCase
 {
@@ -20,7 +21,7 @@ class GrantFactoryTest extends TestCase
     protected function setUp(): void {
         parent::setUp();
 
-        $this->factory = new GrantFactory();
+        $this->factory = new GrantFactory(new ValidateStringifiedGrantService());
         $this->buildGrantIndexService = new BuildGrantIndexService();
     }
 

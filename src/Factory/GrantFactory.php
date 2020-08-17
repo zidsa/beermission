@@ -8,9 +8,16 @@ use Yxvt\Beermission\Entity\Permission;
 use Yxvt\Beermission\Entity\Role;
 use Yxvt\Beermission\Entity\Scope;
 use Yxvt\Beermission\Exception\InvalidStringifiedGrant;
+use Yxvt\Beermission\Service\ValidateStringifiedGrantService;
 
 class GrantFactory
 {
+    private ValidateStringifiedGrantService $validateStringifiedGrantService;
+
+    public function __construct(ValidateStringifiedGrantService $service) {
+        $this->validateStringifiedGrantService = $service;
+    }
+
     public function roleFromString(string $stringifiedGrant): Role {
         $this->validateStringifiedGrant($stringifiedGrant);
 
@@ -28,7 +35,7 @@ class GrantFactory
     }
 
     private function validateStringifiedGrant(string $stringifiedGrant): void {
-        if (preg_match('/^.+;.+;(.+)?$/m', $stringifiedGrant) === 0) {
+        if ($this->validateStringifiedGrantService->isValid($stringifiedGrant) === false) {
             throw new InvalidStringifiedGrant();
         }
     }
