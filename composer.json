@@ -1,0 +1,36 @@
+{
+    "name": "yxvt/beermission",
+    "description": "Simple and flexible roles & permission system",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bartek Stecko",
+            "email": "stecko.bartosz@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.4@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Yxvt\\Beermission\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Yxvt\\Beermission\\Test\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit --testdox"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
