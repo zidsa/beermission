@@ -5,13 +5,23 @@ declare(strict_types=1);
 namespace Yxvt\Beermission\Acl;
 
 use Yxvt\Beermission\Entity\Bearer;
+use Yxvt\Beermission\Entity\Permission;
+use Yxvt\Beermission\Entity\Role;
 
 class AccessEvaluator
 {
     private Bearer $bearer;
+
+    /** @var array|Role[] */
     private array $roles;
+
+    /** @var array|Permission[] */
     private array $permissions;
 
+    /**
+     * @param array|Role[] $expectedRoles
+     * @param array|Permission[] $expectedPermissions
+     */
     public function __construct(Bearer $bearer, array $expectedRoles, array $expectedPermissions) {
         $this->bearer = $bearer;
         $this->roles = $expectedRoles;

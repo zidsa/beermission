@@ -7,6 +7,8 @@ namespace Yxvt\Beermission\Entity;
 class GrantBag
 {
     private GrantIndexBuilder $indexBuilder;
+
+    /** @var array|Grant[] */
     private array $grants = [];
 
     public function __construct(GrantIndexBuilder $grantIndexBuilder, Grant ...$grants) {
@@ -29,7 +31,7 @@ class GrantBag
         return array_key_exists($this->indexBuilder->build($grant, true), $this->grants);
     }
 
-    public function get(Grant $grant): bool {
+    public function get(Grant $grant): Grant {
         return $this->grants[$this->indexBuilder->build($grant)];
     }
 

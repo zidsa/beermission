@@ -5,6 +5,11 @@ declare(strict_types=1);
 use Yxvt\Beermission\Exception\InvalidArrayTypeException;
 
 if (false === function_exists('assertArrayType')) {
+    /**
+     * @param array|mixed[] $data
+     * @param mixed $exception
+     * @throws InvalidArrayTypeException
+     */
     function assertArrayType(array $data, string $expectedType, $exception = null): void {
         foreach ($data as $index => $item) {
             if (false === $item instanceof $expectedType) {

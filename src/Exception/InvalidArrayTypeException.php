@@ -9,7 +9,7 @@ use Exception;
 class InvalidArrayTypeException extends Exception
 {
     public static function create(int $index, string $expectedType, string $actualType): self {
-        return new static(
+        return new InvalidArrayTypeException(
             "Expected instance of $expectedType, given $actualType at index $index"
         );
     }

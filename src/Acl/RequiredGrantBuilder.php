@@ -10,7 +10,10 @@ use Yxvt\Beermission\Entity\Scope;
 
 class RequiredGrantBuilder
 {
+    /** @var array|Role[] */
     private array $hasRoles = [];
+
+    /** @var array|Permission[] */
     private array $hasPermissions = [];
 
     public function hasRole(string $role, string $scope, ?string $scopeValue = null): self {
