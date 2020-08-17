@@ -17,6 +17,3 @@ $this->acl
     ->shouldBeGrantedAccessWhen()
     ->hasAllExpectedGrants();
 ```
-
-> Important note: the syntax is most likely going to change.
-
