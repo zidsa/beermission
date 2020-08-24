@@ -6,7 +6,7 @@ namespace Yxvt\Beermission\Service;
 
 use Yxvt\Beermission\Entity\Grant;
 
-class BuildGrantIndexService
+class GrantIndexBuilder
 {
     public function build(Grant $grant, bool $forceGeneric = false): string {
         return implode(';', [

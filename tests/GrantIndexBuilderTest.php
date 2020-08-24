@@ -7,16 +7,16 @@ namespace Yxvt\Beermission\Test;
 use Yxvt\Beermission\Entity\Grant;
 use Yxvt\Beermission\Entity\Scope;
 use PHPUnit\Framework\TestCase;
-use Yxvt\Beermission\Service\BuildGrantIndexService;
+use Yxvt\Beermission\Service\GrantIndexBuilder;
 
 class GrantIndexBuilderTest extends TestCase
 {
-    private BuildGrantIndexService $service;
+    private GrantIndexBuilder $service;
 
     protected function setUp(): void {
         parent::setUp();
 
-        $this->service = new BuildGrantIndexService();
+        $this->service = new GrantIndexBuilder();
     }
 
     public function testIndexCreationForConcreteGrant(): void {

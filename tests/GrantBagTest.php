@@ -8,7 +8,7 @@ use Yxvt\Beermission\Entity\Grant;
 use Yxvt\Beermission\Entity\GrantBag;
 use Yxvt\Beermission\Entity\Scope;
 use PHPUnit\Framework\TestCase;
-use Yxvt\Beermission\Service\BuildGrantIndexService;
+use Yxvt\Beermission\Service\GrantIndexBuilder;
 
 class GrantBagTest extends TestCase
 {
@@ -17,7 +17,7 @@ class GrantBagTest extends TestCase
         $grant->method('name')->willReturn('GrantName');
         $grant->method('scope')->willReturn(new Scope('Scope', 'Value'));
 
-        $bag = new GrantBag(new BuildGrantIndexService());
+        $bag = new GrantBag(new GrantIndexBuilder());
         $bag->add($grant);
         $bag->drop($grant);
 
@@ -26,7 +26,7 @@ class GrantBagTest extends TestCase
 
     /** @dataProvider bagContainsConcreteGrantProvider */
     public function testBagContainsConcreteGrant(Grant $grant, Grant $target, bool $expectedResult): void {
-        $bag = new GrantBag(new BuildGrantIndexService(), $grant);
+        $bag = new GrantBag(new GrantIndexBuilder(), $grant);
 
         $this->assertEquals($expectedResult, $bag->hasConcrete($target));
     }
@@ -61,7 +61,7 @@ class GrantBagTest extends TestCase
 
     /** @dataProvider bagContainsGenericGrantProvider */
     public function testBagContainsGenericGrant(Grant $grant, Grant $target, bool $expectedResult): void {
-        $bag = new GrantBag(new BuildGrantIndexService(), $grant);
+        $bag = new GrantBag(new GrantIndexBuilder(), $grant);
 
         $this->assertEquals($expectedResult, $bag->hasGeneric($target));
     }

@@ -10,19 +10,19 @@ use Yxvt\Beermission\Entity\Scope;
 use Yxvt\Beermission\Exception\InvalidStringifiedGrant;
 use Yxvt\Beermission\Factory\GrantFactory;
 use PHPUnit\Framework\TestCase;
-use Yxvt\Beermission\Service\BuildGrantIndexService;
+use Yxvt\Beermission\Service\GrantIndexBuilder;
 use Yxvt\Beermission\Service\ValidateStringifiedGrantService;
 
 class GrantFactoryTest extends TestCase
 {
     private GrantFactory $factory;
-    private BuildGrantIndexService $buildGrantIndexService;
+    private GrantIndexBuilder $buildGrantIndexService;
 
     protected function setUp(): void {
         parent::setUp();
 
         $this->factory = new GrantFactory(new ValidateStringifiedGrantService());
-        $this->buildGrantIndexService = new BuildGrantIndexService();
+        $this->buildGrantIndexService = new GrantIndexBuilder();
     }
 
     public function testGrantFactoryCreatesRole(): void {

@@ -9,7 +9,7 @@ use Yxvt\Beermission\Entity\Grant;
 use Yxvt\Beermission\Entity\GrantBag;
 use Yxvt\Beermission\Entity\Scope;
 use PHPUnit\Framework\TestCase;
-use Yxvt\Beermission\Service\BuildGrantIndexService;
+use Yxvt\Beermission\Service\GrantIndexBuilder;
 
 class BearerTest extends TestCase
 {
@@ -55,7 +55,7 @@ class BearerTest extends TestCase
 
     private function createGrantBag(Grant ...$grants): GrantBag
     {
-        return new GrantBag(new BuildGrantIndexService(), ...$grants);
+        return new GrantBag(new GrantIndexBuilder(), ...$grants);
     }
 
     private function createGrant(string $name, string $scope, ?string $scopeValue = null): Grant
